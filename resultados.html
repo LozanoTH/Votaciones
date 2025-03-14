@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados en Vivo</title>
+    <script>
+        function actualizarResultados() {
+            fetch('obtener_resultados.php')
+            .then(response => response.json())
+            .then(data => {
+                let resultados = document.getElementById("resultados");
+                resultados.innerHTML = "";
+                for (let candidato in data) {
+                    resultados.innerHTML += `<p>${candidato}: ${data[candidato]} votos</p>`;
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        setInterval(actualizarResultados, 3000); // Actualiza cada 3 segundos
+    </script>
+</head>
+<body onload="actualizarResultados()">
+    <h2>Resultados en Vivo</h2>
+    <div id="resultados">Cargando...</div>
+</body>
+</html>

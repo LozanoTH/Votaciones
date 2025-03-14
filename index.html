@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votación</title>
+    <script>
+        function votar() {
+            let candidato = document.querySelector('input[name="candidato"]:checked');
+            if (!candidato) {
+                alert("Selecciona un candidato");
+                return;
+            }
+
+            fetch('registrar_voto.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ candidato: candidato.value })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.mensaje))
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</head>
+<body>
+    <h2>Vota por tu candidato</h2>
+    <form onsubmit="event.preventDefault(); votar();">
+        <label><input type="radio" name="candidato" value="Candidato 1"> Candidato 1</label><br>
+        <label><input type="radio" name="candidato" value="Candidato 2"> Candidato 2</label><br>
+        <button type="submit">Votar</button>
+    </form>
+</body>
+</html>
