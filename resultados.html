@@ -25,13 +25,18 @@
                             data: valores,
                             backgroundColor: ["red", "blue", "green", "yellow", "purple"]
                         }]
-                    }
+                    },
+                    options: { responsive: true }
                 });
 
                 let lista = document.getElementById("listaVotos");
                 lista.innerHTML = "";
                 labels.forEach((candidato, index) => {
-                    lista.innerHTML += `<p>${candidato}: ${valores[index]} votos</p>`;
+                    lista.innerHTML += `
+                        <div class="resultado">
+                            <img src="avatar.jpg" alt="${candidato}">
+                            <p>${candidato}: ${valores[index]} votos</p>
+                        </div>`;
                 });
             })
             .catch(error => console.error("Error:", error));

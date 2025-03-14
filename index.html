@@ -19,7 +19,10 @@
                 body: JSON.stringify({ candidato: candidato.value })
             })
             .then(response => response.json())
-            .then(data => alert(data.mensaje))
+            .then(data => {
+                alert(data.mensaje);
+                window.location.href = "resultados.html";
+            })
             .catch(error => console.error("Error:", error));
         }
     </script>
@@ -30,23 +33,23 @@
         <form onsubmit="event.preventDefault(); votar();">
             <div class="candidatos">
                 <label class="candidato">
-                    <img src="candidato1.jpg" alt="Candidato 1">
+                    <img src="avatar.jpg" alt="Candidato 1">
                     <input type="radio" name="candidato" value="Candidato 1"> Candidato 1
                 </label>
                 <label class="candidato">
-                    <img src="candidato2.jpg" alt="Candidato 2">
+                    <img src="avatar.jpg" alt="Candidato 2">
                     <input type="radio" name="candidato" value="Candidato 2"> Candidato 2
                 </label>
                 <label class="candidato">
-                    <img src="candidato3.jpg" alt="Candidato 3">
+                    <img src="avatar.jpg" alt="Candidato 3">
                     <input type="radio" name="candidato" value="Candidato 3"> Candidato 3
                 </label>
                 <label class="candidato">
-                    <img src="candidato4.jpg" alt="Candidato 4">
+                    <img src="avatar.jpg" alt="Candidato 4">
                     <input type="radio" name="candidato" value="Candidato 4"> Candidato 4
                 </label>
                 <label class="candidato">
-                    <img src="candidato5.jpg" alt="Candidato 5">
+                    <img src="avatar.jpg" alt="Candidato 5">
                     <input type="radio" name="candidato" value="Candidato 5"> Candidato 5
                 </label>
             </div>
