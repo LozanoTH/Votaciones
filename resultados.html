@@ -4,25 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados en Vivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="chart.min.js"></script>
     <script>
         function actualizarResultados() {
             fetch('obtener_resultados.php')
             .then(response => response.json())
             .then(data => {
-                let resultados = document.getElementById("resultados");
-                resultados.innerHTML = "";
-                for (let candidato in data) {
-                    resultados.innerHTML += `<p>${candidato}: ${data[candidato]} votos</p>`;
-                }
+                let labels = Object.keys(data);
+                let valores = Object.values(data);
+
+                let ctx = document.getElementById("grafico").getContext("2d");
+                if (window.myChart) window.myChart.destroy();
+                window.myChart = new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Votos",
+                            data: valores,
+                            backgroundColor: ["red", "blue", "green", "yellow", "purple"]
+                        }]
+                    }
+                });
+
+                let lista = document.getElementById("listaVotos");
+                lista.innerHTML = "";
+                labels.forEach((candidato, index) => {
+                    lista.innerHTML += `<p>${candidato}: ${valores[index]} votos</p>`;
+                });
             })
             .catch(error => console.error("Error:", error));
         }
 
-        setInterval(actualizarResultados, 3000); // Actualiza cada 3 segundos
+        setInterval(actualizarResultados, 3000);
     </script>
 </head>
 <body onload="actualizarResultados()">
-    <h2>Resultados en Vivo</h2>
-    <div id="resultados">Cargando...</div>
+    <div class="container">
+        <h2>Resultados en Vivo</h2>
+        <canvas id="grafico"></canvas>
+        <div id="listaVotos"></div>
+    </div>
 </body>
 </html>
+
