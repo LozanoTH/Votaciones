@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes Recibidos</title>
+</head>
+<body>
+    <h2>Mensajes Recibidos</h2>
+    <ul id="mensajes"></ul>
+
+    <script>
+        function cargarMensajes() {
+            fetch("get_messages.php")  // Archivo PHP que recupera los mensajes
+                .then(response => response.text())
+                .then(data => document.getElementById("mensajes").innerHTML = data)
+                .catch(error => console.error("Error:", error));
+        }
+
+        setInterval(cargarMensajes, 5000);  // Actualiza cada 5 segundos
+    </script>
+</body>
+</html>

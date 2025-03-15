@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Datos al Bot</title>
+</head>
+<body>
+    <h2>Enviar datos al bot</h2>
+    <form id="form">
+        <input type="text" id="mensaje" placeholder="Escribe un mensaje" required>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let mensaje = document.getElementById('mensaje').value;
+
+            let token = "7305607951:AAHxeB-mnSoXBTLW8ZcSVtkH_3ZQitgdkUY";  // Reemplaza con el token de tu bot
+            let chatId = "7060108163";   // Reemplaza con tu chat ID
+
+            let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mensaje)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => console.log("Mensaje enviado", data))
+                .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
+
